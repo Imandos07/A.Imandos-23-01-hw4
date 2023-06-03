@@ -62,8 +62,17 @@ export const addTodo = payload => (
     {type: 'ADD_TODO', payload}
 )
 
-export const deleteTodo = payload => (
-    {type: 'REMOVE_TODO', payload}
-)
+export const deleteTodo = (payload) => {
+    return (dispatch) => {
+        fetch(`URL/${payload}` , { method: 'DELETE' })
+         .then(() => {
+            dispatch({type: 'REMOVE_TODO', payload})
+         })
+         .catch((error) => {
+            console.log('Error deleting todo:' , error)
+         })
+    }
+}
+
 
 export default todosReducer 
